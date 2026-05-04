@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event - Smart Campus Events</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">🎓 Smart Campus Events</span>
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/admin/registrations">📋 Registrations</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="form-box" style="max-width:550px;">
+    <h2>➕ Create New Event</h2>
+
+    <form method="post" action="/create-event">
+        <label>Event Title</label>
+        <input type="text" name="title" placeholder="e.g. Tech Fest 2025" required>
+
+        <label>Description</label>
+        <textarea name="description" rows="4" placeholder="Describe the event..."></textarea>
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+
+        <label>Location</label>
+        <input type="text" name="location" placeholder="e.g. Main Auditorium">
+
+        <button type="submit" class="btn btn-primary" style="width:100%">Create Event</button>
+    </form>
+
+    <br>
+    <p style="text-align:center; font-size:14px;">
+        <a href="/dashboard">← Back to Dashboard</a>
+    </p>
+</div>
+
+</body>
+</html>

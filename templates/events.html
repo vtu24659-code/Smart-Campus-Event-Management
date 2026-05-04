@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Events - Smart Campus Events</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">🎓 Smart Campus Events</span>
+    <div>
+        <a href="/">Home</a>
+        {% if user %}
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    <h1>📅 All Campus Events</h1>
+
+    {% if events %}
+        {% for event in events %}
+        <div class="card">
+            <h3>{{ event.title }}</h3>
+            <p>📝 {{ event.description }}</p>
+            <p>📆 Date: <strong>{{ event.date }}</strong></p>
+            <p>📍 Location: {{ event.location if event.location else "TBA" }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No events have been scheduled yet. Check back later!</p>
+        </div>
+    {% endif %}
+
+    {% if not user %}
+    <p style="text-align:center; margin-top:20px;">
+        <a href="/register" class="btn btn-primary">Register to join events!</a>
+    </p>
+    {% endif %}
+</div>
+
+</body>
+</html>

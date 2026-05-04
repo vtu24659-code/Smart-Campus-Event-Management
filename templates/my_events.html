@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Events - Smart Campus Events</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">🎓 Smart Campus Events</span>
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/my-events">My Events</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>📌 My Registered Events</h1>
+    <p style="margin-bottom:20px; color:#555;">Hello <strong>{{ user.name }}</strong>, here are the events you registered for:</p>
+
+    {% if events %}
+        {% for event in events %}
+        <div class="card">
+            <h3>{{ event.title }}</h3>
+            <p>📝 {{ event.description }}</p>
+            <p>📆 Date: <strong>{{ event.date }}</strong></p>
+            <p>📍 Location: {{ event.location if event.location else "TBA" }}</p>
+            <span class="registered-tag">✅ Registered</span>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>You have not registered for any events yet.</p>
+            <br>
+            <a href="/dashboard" class="btn btn-primary">Browse Events</a>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

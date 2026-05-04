@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Smart Campus Events</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">🎓 Smart Campus Events</span>
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/my-events">My Events</a>
+        {% if user.role == "admin" %}
+        <a href="/create-event">➕ Add Event</a>
+        <a href="/admin/registrations">📋 All Registrations</a>
+        {% endif %}
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>
+        Welcome, {{ user.name }}!
+        <span class="badge badge-{{ user.role }}">{{ user.role }}</span>
+    </h1>
+
+    <h2>📅 All Campus Events</h2>
+
+    {% if events %}
+        {% for event in events %}
+        <div class="card">
+            <h3>{{ event.title }}</h3>
+            <p>📝 {{ event.description }}</p>
+            <p>📆 Date: <strong>{{ event.date }}</strong></p>
+            <p>📍 Location: {{ event.location if event.location else "TBA" }}</p>
+
+            <br>
+            {% if user.role == "student" %}
+                {% if event.id in registered_event_ids %}
+                    <span class="registered-tag">✅ Already Registered</span>
+                {% else %}
+                    <form method="post" action="/register-event/{{ event.id }}" style="display:inline;">
+                        <button type="submit" class="btn btn-success">Register</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+
+            {% if user.role == "admin" %}
+                <form method="post" action="/delete-event/{{ event.id }}" style="display:inline;"
+                      onsubmit="return confirm('Delete this event?')">
+                    <button type="submit" class="btn btn-danger">🗑️ Delete Event</button>
+                </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No events available yet.
+            {% if user.role == "admin" %}
+                <a href="/create-event">Create the first event!</a>
+            {% endif %}
+            </p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Registrations - Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">🎓 Smart Campus Events</span>
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/create-event">➕ Add Event</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>📋 All Student Registrations</h1>
+    <p style="margin-bottom:20px; color:#555;">Admin View — Every student and their registered event.</p>
+
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Event</th>
+                <th>Event Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.student }}</td>
+                <td>{{ row.event }}</td>
+                <td>{{ row.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="card">
+            <p>No registrations yet. Students haven't signed up for events.</p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
